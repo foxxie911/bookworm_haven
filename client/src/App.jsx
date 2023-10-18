@@ -1,24 +1,29 @@
-import { useState } from "react";
-import bookwormLogo from "./assets/favicon.ico";
-import "./App.css";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { Home, Registration, Login, Landing, Error } from "./pages";
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />,
+    errorElement: <Error />,
+    children: [
+      {
+        index: true,
+        element: <Landing />,
+      },
+      {
+        path: "registration",
+        element: <Registration />,
+      },
+      {
+        path: "login",
+        element: <Login />,
+      },
+    ],
+  },
+]);
 
-function App() {
-  const [count, setCount] = useState(0);
-
-  return (
-    <>
-      <div>
-        <img src={bookwormLogo} class='logo' alt='Bookworm Haven Logo' />
-      </div>
-      <h1>Bookworm Haven</h1>
-      <p>This is an online bookstore</p>
-      <div className='card'>
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-      </div>
-    </>
-  );
-}
+const App = () => {
+  return <RouterProvider router={router} />;
+};
 
 export default App;
