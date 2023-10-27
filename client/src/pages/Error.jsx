@@ -11,7 +11,7 @@ const Error = () => {
         <img src={error404} alt='ERROR-404' />
         <h3>Error 404</h3>
         <p>Could not find the page you are looking for</p>
-        <Link to='/'>Back to home</Link>
+        <Link to='/home'>Back to home</Link>
       </Wrapper>
     );
   }

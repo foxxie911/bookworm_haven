@@ -30,7 +30,7 @@ app.use("*", (req, res) => {
   res.status(404).json({ msg: "Not found" });
 });
 
-// Error Middleware
+// Error Handler Middleware
 app.use((err, req, res, next) => {
   console.log(err);
   res.status(500).json({ msg: "Something went wrong" });
@@ -38,7 +38,7 @@ app.use((err, req, res, next) => {
 
 const port = process.env.PORT || 5100;
 
-//MONGOOSE CONNECT
+// MONGOOSE CONNECT
 try {
   await mongoose.connect(process.env.MONGO_URL);
   app.listen(port, () => {
