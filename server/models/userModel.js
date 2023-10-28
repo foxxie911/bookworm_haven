@@ -1,7 +1,9 @@
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
-  name: String,
+  fname: String,
+  lname: String,
+  username: String,
   email: String,
   password: String,
   address: String,
@@ -11,3 +13,5 @@ const userSchema = new mongoose.Schema({
     default: "user",
   },
 });
+
+export default mongoose.model("User", userSchema);

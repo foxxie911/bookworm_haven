@@ -1,8 +1,13 @@
 import mongoose from "mongoose";
-import { BadRequestError, NotFoundError, UnauthorizedError } from "../errors/customErrors.js";
-import { body, param ,validationResult } from "express-validator";
+import {
+  BadRequestError,
+  NotFoundError,
+  UnauthorizedError,
+} from "../errors/customErrors.js";
+import { body, param, validationResult } from "express-validator";
 import { BOOK_TYPE } from "../utils/constants.js";
 import Book from "../models/bookModel.js";
+import User from "../models/userModel.js";
 
 const withValidationErrors = (validateValues) => {
   return [
@@ -11,11 +16,11 @@ const withValidationErrors = (validateValues) => {
       const error = validationResult(req);
       if (!error.isEmpty()) {
         const errorMessages = error.array().map((error) => error.msg);
-        if(errorMessages[0].startsWith("No book")){
-            throw new NotFoundError(errorMessages);
+        if (errorMessages[0].startsWith("No book")) {
+          throw new NotFoundError(errorMessages);
         }
-        if(errorMessages[0].startsWith("You are not authorized")){
-            throw new UnauthorizedError(errorMessages);
+        if (errorMessages[0].startsWith("You are not authorized")) {
+          throw new UnauthorizedError(errorMessages);
         }
         throw new BadRequestError(errorMessages);
       }
@@ -51,7 +56,8 @@ export const validateBookInput = withValidationErrors([
 export const validateIdParam = withValidationErrors([
   param("id").custom(async (value, { req }) => {
     const isValidMongoId = mongoose.Types.ObjectId.isValid(value);
-    if (!isValidMongoId) throw new BadRequestError(`Invalid MongoDB ID ${value}`);
+    if (!isValidMongoId)
+      throw new BadRequestError(`Invalid MongoDB ID ${value}`);
     const book = await Book.findById(value);
     if (!book) throw new NotFoundError(`No book exist with id ${value}`);
     const isAdmin = req.user.role === "admin";
@@ -62,4 +68,41 @@ export const validateIdParam = withValidationErrors([
         "You are not authorized to access this route"
       );
   }),
+]);
+
+// Validate Register
+export const validateRegisterInput = withValidationErrors([
+  body("fname").notEmpty().withMessage("First name is required"),
+  body("lname").notEmpty().withMessage("Last name is required"),
+  body("username")
+    .notEmpty()
+    .withMessage("Username is required")
+    .custom(async (username) => {
+      const user = await User.findOne({ username });
+      if (user) throw new BadRequestError("This username is already taken");
+    }),
+  body("email")
+    .notEmpty()
+    .withMessage("E-mail is required")
+    .isEmail()
+    .withMessage("Invalid email format")
+    .custom(async (email) => {
+      const user = await User.findOne({ email });
+      if (user) throw new BadRequestError("E-mail already exist");
+    }),
+  body("password")
+    .notEmpty()
+    .withMessage("Password is required")
+    .isLength({ min: 8 })
+    .withMessage("Password must be 8 characters long")
+    .isStrongPassword()
+    .withMessage(
+      "Password is not strong enough, try adding symbols, uppercase & lowercase letters"
+    ),
+  body("address").notEmpty().withMessage("Address is required"),
+]);
+
+export const validateLoginInput = withValidationErrors([
+  body("username").notEmpty().withMessage("Username is empty"),
+  body("password").notEmpty().withMessage("Password is empty"),
 ]);

@@ -4,6 +4,7 @@ dotenv.config();
 import express from "express";
 import morgan from "morgan";
 import mongoose from "mongoose";
+import { StatusCodes } from "http-status-codes";
 
 // Middlewares
 import errorHandlerMiddleware from "./middlewares/errorHandlerMiddleware.js";
@@ -11,6 +12,7 @@ import errorHandlerMiddleware from "./middlewares/errorHandlerMiddleware.js";
 
 // ROUTERS
 import bookRouter from "./routers/bookRouter.js";
+import authRouter from "./routers/authRouter.js";
 const app = express();
 
 if (process.env.NODE_ENV === "development") {
@@ -18,9 +20,10 @@ if (process.env.NODE_ENV === "development") {
 }
 
 app.use(express.json());
-
-//BOOK REQUEST
+// Book Request
 app.use("/api/book", bookRouter);
+// User Request
+app.use("/api/auth", authRouter);
 
 // // Test GET
 // app.get("/api/test", validateTest, (req, res) => {
@@ -35,7 +38,7 @@ app.use("/api/book", bookRouter);
 
 // Not Found (Error-404) Middleware
 app.use("*", (req, res) => {
-  res.status(404).json({ msg: "Not found" });
+  res.status(StatusCodes.NOT_FOUND).json({ msg: "Not found" });
 });
 
 app.use(errorHandlerMiddleware);
