@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { validateBookInput, validateIdParam } from "../middlewares/validators.js";
 const router = Router();
 
 import {
@@ -9,11 +10,12 @@ import {
   deleteBook,
 } from "../controllers/bookController.js";
 
-router.get("/", getAllBooks);
-router.post("/", createBook);
+router.route("/").get(getAllBooks).post(validateBookInput, createBook);
 
-router.get("/:id", getSingleBook);
-router.patch("/:id", editBook);
-router.delete("/:id", deleteBook);
+router
+  .route("/:id")
+  .get(validateIdParam, getSingleBook)
+  .patch(validateIdParam ,validateBookInput, editBook)
+  .delete(validateIdParam, deleteBook);
 
 export default router;

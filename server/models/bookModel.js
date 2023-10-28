@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { BOOK_TYPE } from "../utils/constants.js";
 
 const bookSchema = new mongoose.Schema(
   {
@@ -8,8 +9,8 @@ const bookSchema = new mongoose.Schema(
     publishingYear: Number,
     bookType: {
       type: String,
-      enum: ["Hardcover", "Paperback", "eBook"],
-      default: "Paperback",
+      enum: Object.values(BOOK_TYPE),
+      default: BOOK_TYPE.PAPERBACK,
     },
     description: {
       type: String,
