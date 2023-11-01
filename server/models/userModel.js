@@ -14,4 +14,9 @@ const userSchema = new mongoose.Schema({
   },
 });
 
+userSchema.methods.withoutPassword = function () {
+  let usr = this.toObject();
+  delete usr.password;
+  return usr;
+};
 export default mongoose.model("User", userSchema);

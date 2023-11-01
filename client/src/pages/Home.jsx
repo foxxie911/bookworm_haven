@@ -1,34 +1,42 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, redirect, useLoaderData, useNavigate } from "react-router-dom";
 import Wrapper from "../assets/wrappers/Home";
 import { createContext, useContext, useState } from "react";
 import { BigSidebar, Navbar, SmallSidebar } from "../components";
+import customFetch from "../utils/customFetch";
+import { toast } from "react-toastify";
+
+export const loader = async () => {
+  try {
+    const { data } = await customFetch.get("/user/current-user");
+    return data;
+  } catch (error) {
+    return redirect("/login");
+  }
+};
 
 const HomeContext = createContext();
 
 const Home = () => {
-  //temp
+  const { user } = useLoaderData();
+  const navigate = useNavigate();
   const [showSidebar, setShowSidebar] = useState(false);
-  const [isDarkTheme, setDarkTheme] = useState(false);
-
-  const toggleDarkTheme = () => {
-    console.log("Dark Mode.");
-  };
 
   const toggleSidebar = () => {
     setShowSidebar(!showSidebar);
   };
 
   const logout = async () => {
-    console.log("Logged Out");
+    navigate("/home");
+    await customFetch.get("/auth/logout");
+    toast.success("Logging out");
   };
 
   return (
     <HomeContext.Provider
       value={{
+        user,
         showSidebar,
-        isDarkTheme,
         toggleSidebar,
-        toggleDarkTheme,
         logout,
       }}
     >
@@ -39,10 +47,9 @@ const Home = () => {
           <div>
             <Navbar />
             <div className='home-page'>
-              <Outlet />
+              <Outlet context={{user}} />
             </div>
           </div>
-          {/* <BigSidebar /> */}
         </main>
       </Wrapper>
     </HomeContext.Provider>

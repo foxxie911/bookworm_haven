@@ -19,7 +19,7 @@ const Error = () => {
   return (
     <Wrapper>
       <h3>Something went wrong</h3>
-      <Link to='/'>Back to home</Link>
+      <Link to='/home'>Back to home</Link>
     </Wrapper>
   );
 };

@@ -1,29 +1,40 @@
 import "express-async-errors";
 import * as dotenv from "dotenv";
 dotenv.config();
-import express from "express";
+import express, { application } from "express";
 import morgan from "morgan";
 import mongoose from "mongoose";
 import { StatusCodes } from "http-status-codes";
+import cookieParser from "cookie-parser";
 
 // Middlewares
 import errorHandlerMiddleware from "./middlewares/errorHandlerMiddleware.js";
+import { authenticateUser } from "./middlewares/authMiddlewares.js";
 // import { validateTest } from "./middlewares/validators.js";
 
 // ROUTERS
 import bookRouter from "./routers/bookRouter.js";
 import authRouter from "./routers/authRouter.js";
+import userRouter from "./routers/userRouter.js";
 const app = express();
 
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
+// Cookie Parser
+app.use(cookieParser());
 
 app.use(express.json());
 // Book Request
-app.use("/api/book", bookRouter);
+app.use("/api/book", authenticateUser, bookRouter);
 // User Request
+app.use("/api/user", authenticateUser, userRouter);
+// Authentication Request
 app.use("/api/auth", authRouter);
+// Test Request
+app.use("/api/test", (req, res) => {
+  res.json({ msg: "test request" });
+});
 
 // // Test GET
 // app.get("/api/test", validateTest, (req, res) => {

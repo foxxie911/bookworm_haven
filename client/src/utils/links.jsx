@@ -14,7 +14,7 @@ const links = [
   },
   {
     text: "add book",
-    path: "add-book",
+    path: "addBook",
     icon: <FaWpforms />,
   },
   {

@@ -16,7 +16,7 @@ const withValidationErrors = (validateValues) => {
       const error = validationResult(req);
       if (!error.isEmpty()) {
         const errorMessages = error.array().map((error) => error.msg);
-        if (errorMessages[0].startsWith("No book")) {
+        if (errorMessages[0].startsWith("Not found")) {
           throw new NotFoundError(errorMessages);
         }
         if (errorMessages[0].startsWith("You are not authorized")) {
@@ -58,12 +58,17 @@ export const validateIdParam = withValidationErrors([
     const isValidMongoId = mongoose.Types.ObjectId.isValid(value);
     if (!isValidMongoId)
       throw new BadRequestError(`Invalid MongoDB ID ${value}`);
+
+    // Validate book id
     const book = await Book.findById(value);
-    if (!book) throw new NotFoundError(`No book exist with id ${value}`);
+    if (!book) throw new NotFoundError(`Not found`);
+
+    // Validate user id
     const isAdmin = req.user.role === "admin";
     const isOwner = req.user.userId === book.createdBy.toString();
+    const isUser = req.user.role === "user";
 
-    if (!isAdmin && !isOwner)
+    if (!isAdmin && !isOwner && !isUser)
       throw new UnauthorizedError(
         "You are not authorized to access this route"
       );
@@ -102,7 +107,35 @@ export const validateRegisterInput = withValidationErrors([
   body("address").notEmpty().withMessage("Address is required"),
 ]);
 
+// Validate Login
 export const validateLoginInput = withValidationErrors([
   body("username").notEmpty().withMessage("Username is empty"),
   body("password").notEmpty().withMessage("Password is empty"),
+]);
+
+// Validate updated user
+export const validateUpdateUserInput = withValidationErrors([
+  body("fname").notEmpty().withMessage("First name is required"),
+  body("lname").notEmpty().withMessage("Last name is required"),
+  body("username")
+    .notEmpty()
+    .withMessage("Username is required")
+    .custom(async (username, { req }) => {
+      const user = await User.findOne({ username });
+      if (user && user._id.toString() !== req.user.userId) {
+        throw new BadRequestError("This username is already taken");
+      }
+    }),
+  body("email")
+    .notEmpty()
+    .withMessage("E-mail is required")
+    .isEmail()
+    .withMessage("Invalid email format")
+    .custom(async (email, { req }) => {
+      const user = await User.findOne({ email });
+      if (user && user._id.toString() !== req.user.userId) {
+        throw new BadRequestError("E-mail already exist");
+      }
+    }),
+  body("address").notEmpty().withMessage("Address is required"),
 ]);

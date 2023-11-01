@@ -6,7 +6,7 @@ const bookSchema = new mongoose.Schema(
     title: String,
     author: String,
     genre: String,
-    publishingYear: Number,
+    publishingYear: String,
     bookType: {
       type: String,
       enum: Object.values(BOOK_TYPE),
@@ -15,6 +15,10 @@ const bookSchema = new mongoose.Schema(
     description: {
       type: String,
       default: "No description available",
+    },
+    createdBy: {
+      type: mongoose.Types.ObjectId,
+      ref: "User",
     },
   },
   {

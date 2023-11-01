@@ -5,7 +5,7 @@ import { useHomeContext } from "../pages/Home";
 
 const NavbarRight = () => {
   const [showLogout, setShowLogout] = useState(false);
-  const { user, logoutUser } = useHomeContext();
+  const { user, logout } = useHomeContext();
   return (
     <Wrapper>
       <button
@@ -16,12 +16,12 @@ const NavbarRight = () => {
         }}
       >
         <FaUserCircle />
-        {user?.name}
+        {user?.fname || "Guest"}
         <FaCaretDown />
       </button>
-      <div className={showLogout? 'dropdown show-dropdown' : 'dropdown'}>
-        <button type="button" className="dropdown-btn" onClick={logoutUser}>
-            Logout
+      <div className={showLogout ? "dropdown show-dropdown" : "dropdown"}>
+        <button type='button' className='dropdown-btn' onClick={logout}>
+          Logout
         </button>
       </div>
     </Wrapper>

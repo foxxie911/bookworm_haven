@@ -5,3 +5,5 @@ export { default as Login } from "./Login";
 export { default as Error } from "./Error";
 export { default as Admin } from "./Admin";
 export { default as GetAllBooks } from "./GetAllBooks";
+export { default as AddBook } from "./AddBook";
+export { default as EditBook } from "./EditBook";

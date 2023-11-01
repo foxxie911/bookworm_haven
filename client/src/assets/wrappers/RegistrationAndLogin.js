@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const Wrapper = styled.section`
   min-height: 100vh;
@@ -13,6 +13,12 @@ const Wrapper = styled.section`
     max-width: 400px;
     border-top: 5px solid var(--primary-500);
   }
+
+  ::placeholder{
+    color: var(--text-color);
+    opacity: 0.6;
+  }
+
   h3 {
     text-align: left;
     color: var(--primary-500);
