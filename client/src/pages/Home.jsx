@@ -26,9 +26,9 @@ const Home = () => {
   };
 
   const logout = async () => {
-    navigate("/home");
+    navigate("/login");
     await customFetch.get("/auth/logout");
-    toast.success("Logging out");
+    toast.success("Logged out");
   };
 
   return (

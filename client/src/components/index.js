@@ -8,4 +8,5 @@ export { default as Navbar } from "./Navbar";
 export { default as NavbarRight } from "./NavbarRight";
 export { default as BookContainer } from "./BookContainer";
 export { default as SearchContainer } from "./SearchContainer";
-export { default as Book} from "./Book";
+export { default as Book } from "./Book";
+export { default as StateItem } from "./StateItem";

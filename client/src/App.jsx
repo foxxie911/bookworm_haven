@@ -9,6 +9,7 @@ import {
   GetAllBooks,
   AddBook,
   EditBook,
+  Profile,
 } from "./pages";
 
 import { loader as homeLoader } from "./pages/Home";
@@ -18,6 +19,9 @@ import { action as addBookAction } from "./pages/AddBook";
 import { loader as allBookLoader } from "./pages/GetAllBooks";
 import { loader as editBookLoader } from "./pages/EditBook";
 import { action as editBookAction } from "./pages/EditBook";
+import { action as deleteBookAction } from "./pages/DeleteBook";
+import { loader as adminPageLoader } from "./pages/Admin";
+import { action as profileAction } from "./pages/Profile";
 
 const router = createBrowserRouter([
   {
@@ -41,14 +45,24 @@ const router = createBrowserRouter([
             action: addBookAction,
           },
           {
+            path: "profile",
+            element: <Profile />,
+            action: profileAction,
+          },
+          {
             path: "admin",
             element: <Admin />,
+            loader: adminPageLoader,
           },
           {
             path: "edit-book/:id",
             element: <EditBook />,
             loader: editBookLoader,
             action: editBookAction,
+          },
+          {
+            path: "delete-book/:id",
+            action: deleteBookAction,
           },
         ],
       },

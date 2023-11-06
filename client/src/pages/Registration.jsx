@@ -3,6 +3,7 @@ import { Form, redirect, useNavigation, Link } from "react-router-dom";
 import { FormRow, Logo } from "../components";
 import { toast } from "react-toastify";
 import customFetch from "../utils/customFetch";
+import { USER_ROLE } from "../../../server/utils/constants";
 
 //Action
 export const action = async ({ request }) => {
@@ -34,6 +35,21 @@ const Registration = () => {
         <FormRow type='text' name='username' labelText='Username'></FormRow>
         <FormRow type='mail' name='email' labelText='E-mail'></FormRow>
         <FormRow type='password' name='password' labelText='Password'></FormRow>
+        
+        {/* User role options */}
+        <select
+          name='role'
+          id='role'
+          className='form-select'
+        >
+          <option key={USER_ROLE.USER} value={USER_ROLE.USER}>
+            {USER_ROLE.USER}
+          </option>
+          <option key={USER_ROLE.PUBLISHER} value={USER_ROLE.PUBLISHER}>
+            {USER_ROLE.PUBLISHER}
+          </option>
+        </select>
+
         <button type='submit' className='btn btn-block' disabled={isSubmitting}>
           {isSubmitting ? "Submitting..." : "Submit"}
         </button>

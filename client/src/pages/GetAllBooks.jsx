@@ -20,7 +20,7 @@ const GetAllBooks = () => {
   // console.log(data);
   return (
     <allBookContext.Provider value={{data}}>
-      <SearchContainer />
+      {/* <SearchContainer /> */}
       <BookContainer />
     </allBookContext.Provider>
   );

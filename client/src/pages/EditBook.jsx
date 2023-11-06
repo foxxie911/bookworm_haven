@@ -79,7 +79,7 @@ const EditBook = () => {
             className='btn btn-block form-btn'
             disabled={isSubmitting}
           >
-            {isSubmitting ? "Confirming..." : "Confirm"}
+            {isSubmitting ? "Submitting..." : "Submit"}
           </button>
         </div>
       </Form>

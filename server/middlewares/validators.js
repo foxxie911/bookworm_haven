@@ -98,8 +98,6 @@ export const validateRegisterInput = withValidationErrors([
   body("password")
     .notEmpty()
     .withMessage("Password is required")
-    .isLength({ min: 8 })
-    .withMessage("Password must be 8 characters long")
     .isStrongPassword()
     .withMessage(
       "Password is not strong enough, try adding symbols, uppercase & lowercase letters"

@@ -7,3 +7,4 @@ export { default as Admin } from "./Admin";
 export { default as GetAllBooks } from "./GetAllBooks";
 export { default as AddBook } from "./AddBook";
 export { default as EditBook } from "./EditBook";
+export { default as Profile } from "./Profile";

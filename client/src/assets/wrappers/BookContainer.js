@@ -3,7 +3,9 @@ import styled from 'styled-components';
 const Wrapper = styled.section`
   margin-top: 4rem;
   h2 {
-    text-transform: none;
+    margin-top: 15rem;
+    text-align: center;
+    opacity: 0.4;
   }
   & > h5 {
     font-weight: 700;

@@ -16,3 +16,9 @@ export const BOOK_SORT_BY = {
   ASCENDING: "a-z",
   DESCENDING: "z-a",
 };
+
+export const USER_ROLE = {
+  ADMIN: "admin",
+  USER: "user",
+  PUBLISHER: "publisher",
+};

@@ -15,6 +15,7 @@ export const getBuyingStats = async (req, res) => {
 };
 
 export const updateUser = async (req, res) => {
+  console.log(req.file);
   const unPassUser = { ...req.body };
   delete unPassUser.password;
   console.log(unPassUser);
