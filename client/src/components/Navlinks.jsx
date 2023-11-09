@@ -11,6 +11,7 @@ const Navlinks = ({ isBigSidebar }) => {
         const { role } = user;
         if (path === "admin" && role != "admin") return;
         if (path === "addBook" && role == "user") return;
+        if (path === "cart" && role != "user") return;
         return (
           <NavLink
             to={path}

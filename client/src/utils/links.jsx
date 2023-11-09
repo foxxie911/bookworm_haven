@@ -1,6 +1,7 @@
 import React from "react";
 
-import { IoBarChartSharp } from "react-icons/io5";
+// import { IoBarChartSharp } from "react-icons/io5";
+import { BsCart3 } from "react-icons/bs";
 import { MdQueryStats } from "react-icons/md";
 import { FaWpforms } from "react-icons/fa";
 import { ImProfile } from "react-icons/im";
@@ -18,9 +19,9 @@ const links = [
     icon: <FaWpforms />,
   },
   {
-    text: "stats",
-    path: "stats",
-    icon: <IoBarChartSharp />,
+    text: "cart",
+    path: "cart",
+    icon: <BsCart3 />,
   },
   {
     text: "profile",

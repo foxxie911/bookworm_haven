@@ -1,6 +1,5 @@
 import Wrapper from "../assets/wrappers/BigSidebar";
 import Navlinks from "./Navlinks";
-import Logo from "./Logo";
 import { useHomeContext } from "../pages/Home";
 
 const BigSidebar = () => {

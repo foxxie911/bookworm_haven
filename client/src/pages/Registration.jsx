@@ -43,10 +43,10 @@ const Registration = () => {
           className='form-select'
         >
           <option key={USER_ROLE.USER} value={USER_ROLE.USER}>
-            {USER_ROLE.USER}
+            User
           </option>
           <option key={USER_ROLE.PUBLISHER} value={USER_ROLE.PUBLISHER}>
-            {USER_ROLE.PUBLISHER}
+            Publisher
           </option>
         </select>
 

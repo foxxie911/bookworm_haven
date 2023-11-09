@@ -7,9 +7,10 @@ import { toast } from "react-toastify";
 
 export const action = async ({request}) => {
     const formData = await request.formData();
+    const data = Object.fromEntries(formData);
 
     try {
-        await customFetch.patch("/user/update-user", formData);
+        await customFetch.patch("/user/update-user", data);
         toast.success("Account updated");
         return null
     } catch (error) {

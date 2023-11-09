@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const Wrapper = styled.article`
   background: var(--background-secondary-color);
@@ -51,6 +51,17 @@ const Wrapper = styled.article`
       grid-template-columns: 1fr 1fr;
     }
   }
+  .description {
+    border-top: 1px solid var(--grey-100);
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    p {
+      margin: 0;
+      line-height: 1.5rem;
+      letter-spacing: var(--letter-spacing);
+      color: var(--text-color);
+    }
+  }
   .status {
     border-radius: var(--border-radius);
     text-transform: capitalize;
@@ -66,6 +77,7 @@ const Wrapper = styled.article`
     display: flex;
     align-items: center;
   }
+  .cart-btn,
   .edit-btn,
   .delete-btn {
     height: 30px;

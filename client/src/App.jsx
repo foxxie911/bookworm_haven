@@ -10,6 +10,7 @@ import {
   AddBook,
   EditBook,
   Profile,
+  Cart,
 } from "./pages";
 
 import { loader as homeLoader } from "./pages/Home";
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
             index: true,
             element: <GetAllBooks />,
             loader: allBookLoader,
+          },
+          {
+            path: "cart",
+            element: <Cart />,
           },
           {
             path: "addBook",
