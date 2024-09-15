@@ -1,5 +1,5 @@
 import User from "../models/userModel.js";
-import { comparePassword, hashPassword } from "../utils/password..js";
+import { comparePassword, hashPassword } from "../utils/password.js";
 import { StatusCodes } from "http-status-codes";
 import { UnauthenticatedError } from "../errors/customErrors.js";
 import { createJwt } from "../utils/tokens.js";
